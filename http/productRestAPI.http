@@ -1,0 +1,4 @@
+### GET 목록조회
+GET http://localhost:8080/products/1
+Content-Type: application/json
+Accept: application/json

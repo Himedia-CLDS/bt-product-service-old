@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mini-database-1.chzvexrfgz7j.ap-northeast-2.rds.amazonaws.com/menu
+    username: admin
+    password: testadmin1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
+
+
