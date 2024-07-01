@@ -1,6 +1,6 @@
 ---
-name: "[Feature-MMDD] - {수정클래스명} 간단설명"
-about: Suggest an idea for this project
+name: Feature
+about: "[Feature-MMDD] - {수정클래스명} 간단설명"
 title: ''
 labels: ''
 assignees: ''
