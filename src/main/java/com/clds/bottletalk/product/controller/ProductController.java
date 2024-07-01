@@ -4,6 +4,8 @@ package com.clds.bottletalk.product.controller;
 import com.clds.bottletalk.common.ResponseDTO;
 import com.clds.bottletalk.product.model.ProductDTO;
 import com.clds.bottletalk.product.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
+import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/products")
+@Slf4j
 public class ProductController {
 
     private final ProductService productService;
@@ -29,7 +32,8 @@ public class ProductController {
         ProductDTO productDTO = productService.findProductByProductId(productId);
 
         System.out.println(productDTO);
-
+        LocalDateTime localDateTime = LocalDateTime.now();
+        log.info("Welcome home Page " + localDateTime);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",productDTO));
 
     }
@@ -41,7 +45,7 @@ public class ProductController {
         List<ProductDTO> productDTOList = productService.findProductList(search);
 
         System.out.println(productDTOList);
-
+        log.info(search + " : " + LocalDateTime.now());
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",productDTOList));
 
     }
