@@ -1,5 +1,5 @@
 ---
-name: Feature
+name: "[Feature-MMDD] - {수정클래스명} 간단설명"
 about: "[Feature-MMDD] - {수정클래스명} 간단설명"
 title: ''
 labels: ''
