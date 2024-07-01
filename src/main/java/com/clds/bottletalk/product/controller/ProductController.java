@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -29,10 +32,21 @@ public class ProductController {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",productDTO));
 
+    }
 
 
+    @GetMapping()
+    public ResponseEntity<ResponseDTO> getProductList(@RequestParam(name = "search", defaultValue = "") String search){
+
+        List<ProductDTO> productDTOList = productService.findProductList(search);
+
+        System.out.println(productDTOList);
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",productDTOList));
 
     }
+
+
 
 
 
