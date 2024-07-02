@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mini-database-1.chzvexrfgz7j.ap-northeast-2.rds.amazonaws.com/menu
+    url: jdbc:mysql://mini-database-1.chzvexrfgz7j.ap-northeast-2.rds.amazonaws.com/bottle_talk
     username: admin
     password: testadmin1234
 
