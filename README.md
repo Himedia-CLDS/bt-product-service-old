@@ -5,10 +5,10 @@
 2. 사용자 액션 로그 수집
 3. 에러 로그 수집
 
-## ELK Stack 실행
-1. ELK 디렉토리 이동
+## elk Stack 실행
+1. elk 디렉토리 이동
 ```shell
-$ cd ELK
+$ cd elk
 ```
 2. docker-compose 실행
 ```shell
