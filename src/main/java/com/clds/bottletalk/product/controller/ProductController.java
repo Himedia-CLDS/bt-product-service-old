@@ -57,8 +57,6 @@ public class ProductController {
         pagingResponseDTO.setData(productDTOList);
 
 
-
-
         log.debug("검색값" + search + " : " + LocalDateTime.now());
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",pagingResponseDTO));
