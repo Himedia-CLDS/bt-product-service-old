@@ -39,8 +39,9 @@ public class ProductController {
         ProductDTO productDTO = productService.findProductByProductId(productId);
 
 
-        LocalDateTime localDateTime = LocalDateTime.now();
-        log.debug("Welcome home Page " + localDateTime);
+
+        log.info("selected product name => {}", productDTO.getName());
+        log.info("selected product DTO => {}", productDTO.toString());
 
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",productDTO));
@@ -49,19 +50,21 @@ public class ProductController {
 
 
     @GetMapping()
-    public ResponseEntity<ResponseDTO> getProductList(@RequestParam(name = "search", defaultValue = "") String search,
+    public ResponseEntity<ResponseDTO> getProductListWithPaging(@RequestParam(name = "search", defaultValue = "") String search,
                                                       @RequestParam(name = "offset", defaultValue = "1") String offset){
         Criteria cri = new Criteria(Integer.valueOf(offset),5);
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
         Page<ProductDTO> productDTOList = productService.findProductListWithPaging(cri,search);
         pagingResponseDTO.setData(productDTOList);
 
-
-        log.debug("검색값" + search + " : " + LocalDateTime.now());
+        log.info("searched Keyword => {}  " , search);
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",pagingResponseDTO));
 
     }
+
+
+
 
 
 

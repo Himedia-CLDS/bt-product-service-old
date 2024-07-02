@@ -5,5 +5,5 @@ build/
 .history/
 .gradle/
 .DS_Store/**
-
+application.log
 
