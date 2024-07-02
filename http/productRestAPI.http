@@ -6,7 +6,7 @@ Accept: application/json
 
 
 ### GET 목록조회
-GET http://localhost:8080/products
+GET http://localhost:8080/products?offset=4
 Content-Type: application/json
 Accept: application/json
 

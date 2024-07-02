@@ -1,9 +1,14 @@
 package com.clds.bottletalk.product.service;
 
+import com.clds.bottletalk.common.Criteria;
 import com.clds.bottletalk.product.model.Product;
 import com.clds.bottletalk.product.model.ProductDTO;
 import com.clds.bottletalk.product.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,12 +34,16 @@ public class ProductService{
 
     }
 
-    public List<ProductDTO> findProductList(String search) {
-        List<Product> ProductList = productRepository.findByNameContainingIgnoreCase(search);
-        List<ProductDTO> ProductDTOList = ProductList.stream().map(product -> modelMapper.map(product,ProductDTO.class)).collect(Collectors.toList());
-
-        return ProductDTOList;
 
 
+    public Page<ProductDTO> findProductListWithPaging(Criteria cri, String search) {
+        int index = cri.getPageNum() -1;
+        int count = cri.getAmount();
+
+        Pageable paging = PageRequest.of(index, count, Sort.by("id").descending());
+        Page<Product> result = productRepository.findByNameContainingIgnoreCase(search,paging);
+
+        Page<ProductDTO> productDTOList = result.map(product -> modelMapper.map(product, ProductDTO.class));
+        return productDTOList;
     }
 }
