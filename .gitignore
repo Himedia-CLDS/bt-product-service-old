@@ -5,4 +5,5 @@ build/
 .history/
 .gradle/
 .DS_Store/**
+logback-spring.xml
 
