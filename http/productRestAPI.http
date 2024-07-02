@@ -12,6 +12,6 @@ Accept: application/json
 
 
 ###상품 이름 검색
-GET http://localhost:8080/products?search=몽키
+GET http://localhost:8080/products?search=Yama
 Content-Type: application/json
 Accept: */*
