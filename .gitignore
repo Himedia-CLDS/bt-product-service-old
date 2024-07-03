@@ -1,9 +1,9 @@
-out/
-build/
 .idea/
 .vscode/
-.history/
-.gradle/
-.DS_Store/**
-application.log
+spring/.gradle/
+spring/build/
+spring/gradle/
+.logs/
+.DS_Store
+
 
