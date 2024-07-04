@@ -1,8 +1,7 @@
 ### GET 상세조회
-GET http://localhost:8080/v1/api/products/2
+GET http://localhost:8080/v1/api/products/5
 Content-Type: application/json
 Accept: application/json
-
 
 
 ### GET 목록조회
@@ -15,3 +14,9 @@ Accept: application/json
 GET http://localhost:8080/v1/api/products?search=yama
 Content-Type: application/json
 Accept: */*
+
+
+### 페이지 없는 상품 목록 조
+GET http://localhost:8080/v1/api/products/all
+Content-Type: application/json
+Accept: application/json
