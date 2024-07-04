@@ -35,7 +35,6 @@ public class ProductService{
     }
 
 
-
     public Page<ProductDTO> findProductListWithPaging(Criteria cri, String search) {
         int index = cri.getPageNum() -1;
         int count = cri.getAmount();
@@ -45,5 +44,14 @@ public class ProductService{
 
         Page<ProductDTO> productDTOList = result.map(product -> modelMapper.map(product, ProductDTO.class));
         return productDTOList;
+    }
+
+    public List<ProductDTO> findProductList(String search) {
+
+        List<Product> productList = productRepository.findByNameContainingIgnoreCase(search);
+        List<ProductDTO> produtDTOList = productList.stream().map(product -> modelMapper.map(product, ProductDTO.class)).collect(Collectors.toList());
+
+
+        return produtDTOList;
     }
 }

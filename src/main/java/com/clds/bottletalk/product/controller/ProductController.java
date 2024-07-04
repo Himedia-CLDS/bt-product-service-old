@@ -61,10 +61,23 @@ public class ProductController {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",pagingResponseDTO));
 
+
+
+
     }
 
 
+    @GetMapping("/all")
+    public ResponseEntity<ResponseDTO> getProductList(@RequestParam(name = "search", defaultValue = "") String search
+    ){
+        if(!search.equals("")) {
+            log.info("searched Keyword => {}  ", search);
+        }
+        List<ProductDTO> productDTOList = productService.findProductList(search);
 
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"조회성공",productDTOList));
+
+    }
 
 
 
