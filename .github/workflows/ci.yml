@@ -32,7 +32,7 @@ jobs:
           AWS_REGION: ap-northeast-2
           S3_BUCKET: bt-project
           APP_NAME: bt-product-service
-          ENV_NAME: env
+          ENV_NAME: Bt-product-service-env
           VERSION_LABEL: ${{ github.sha }}
           IMAGE_NAME: lundaljung/bt-project-service:latest
           IMAGE_TAG: ${{ github.sha }}
