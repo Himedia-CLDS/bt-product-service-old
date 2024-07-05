@@ -4,6 +4,7 @@ build/
 .vscode/
 .history/
 .gradle/
-.DS_Store/**
-application.log
+.logs/
+.DS_Store
+
 
