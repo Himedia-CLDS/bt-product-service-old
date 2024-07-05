@@ -1,0 +1,69 @@
+name: Deploy to AWS Elastic Beanstalk
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Build, tag, and push Docker image to Docker Hub
+        env:
+          IMAGE_NAME: lundaljung/bt-project-service:latest
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
+          docker push $IMAGE_NAME:$IMAGE_TAG
+
+      - name: Deploy to Elastic Beanstalk
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-northeast-2
+          S3_BUCKET: bt-project
+          APP_NAME: bt-product-service
+          ENV_NAME: env
+          VERSION_LABEL: ${{ github.sha }}
+          IMAGE_NAME: lundaljung/bt-project-service:latest
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Create a Dockerrun.aws.json file
+          echo '{
+            "AWSEBDockerrunVersion": "1",
+            "Image": {
+              "Name": "'$IMAGE_NAME':'$IMAGE_TAG'",
+              "Update": "true"
+            },
+            "Ports": [
+              {
+                "ContainerPort": "8080"
+              }
+            ]
+          }' > Dockerrun.aws.json
+          
+          # Zip the Dockerrun.aws.json file
+          zip deploy.zip Dockerrun.aws.json
+          
+          # Upload the zip file to S3
+          aws s3 cp deploy.zip s3://$S3_BUCKET/$VERSION_LABEL-deploy.zip
+          
+          # Create a new application version
+          aws elasticbeanstalk create-application-version \
+            --application-name $APP_NAME \
+            --version-label $VERSION_LABEL \
+            --source-bundle S3Bucket=$S3_BUCKET,S3Key=$VERSION_LABEL-deploy.zip
+          
+          # Update the environment to use the new application version
+          aws elasticbeanstalk update-environment \
+            --environment-name $ENV_NAME \
+            --version-label $VERSION_LABEL
