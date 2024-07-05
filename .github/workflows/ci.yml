@@ -19,7 +19,7 @@ jobs:
 
       - name: Build, tag, and push Docker image to Docker Hub
         env:
-          IMAGE_NAME: lundaljung/bt-project-service:latest
+          IMAGE_NAME: lundaljung/bt-project-service
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $IMAGE_NAME:$IMAGE_TAG .
